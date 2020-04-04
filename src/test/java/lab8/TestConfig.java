@@ -8,12 +8,16 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -31,6 +35,9 @@ public class TestConfig {
     @Autowired
     WebDriver driver;
 
+    @Autowired
+    DesiredCapabilities caps;
+
     @Bean
     public Lab8Config getConfig() {
         Lab8Config cfg = ConfigFactory.create(Lab8Config.class);
@@ -38,7 +45,7 @@ public class TestConfig {
     }
 
     @Bean
-    public WebDriver getDriver() {
+    public WebDriver getDriver() throws Exception {
         Browser browser;
         try {
             browser = Browser.valueOf(config.browser().toLowerCase());
@@ -50,13 +57,19 @@ public class TestConfig {
         WebDriver driver = null;
         if (browser == Browser.chrome) {
             WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver();
         } else if (browser == Browser.firefox) {
             WebDriverManager.firefoxdriver().setup();
-            driver = new FirefoxDriver();
         } else {
             Log.error("Unknown browser type " + browser.name());
         }
+
+//        DesiredCapabilities caps = DesiredCapabilities();
+        caps.setCapability("os", config.os());
+        caps.setCapability("os_version", config.os_version());
+        caps.setCapability("browser", config.browser());
+        caps.setCapability("browser_version", config.browser_version());
+        caps.setCapability("enableVideo", false);
+        driver = new RemoteWebDriver(new URL("http://192.168.0.71:4444/wb/hub/"), caps);
 
         driver.manage().timeouts().implicitlyWait(4L, TimeUnit.SECONDS);
         driver.manage().window().maximize();

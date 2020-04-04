@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Auto-tests-otus" parallel="classes" thread-count="4">
+<suite name="Auto-tests-otus" parallel="methods" thread-count="4">
 
 <!--
     <listeners>
@@ -10,15 +10,8 @@
 
     <test name="homePage-tests">
 
-<!--
-        <parameter name="hostname" value="https://otus.ru/" />
-        <parameter name="login"  value="kmarys@mail.ru" />
-        <parameter name="pwd"  value="otusstreb82" />
--->
-
-
         <classes>
-            <class name="lab8.testotus.Lab7Tests"/>
+            <class name="lab8.TestHabr"></class>
         </classes>
     </test>
 </suite>
