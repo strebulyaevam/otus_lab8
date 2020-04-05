@@ -7,11 +7,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
+//@Scope("prototype")
 public class RegistrPage {
     private static Logger Log = LogManager.getLogger(RegistrPage.class);
 
@@ -27,7 +29,7 @@ public class RegistrPage {
 
     @PostConstruct
     private void init() {
-        waiter = new WebDriverWait(driver, 4);
+        waiter = new WebDriverWait(driver, 6);
     }
 
     public void waitUntilLoad (){

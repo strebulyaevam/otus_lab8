@@ -36,8 +36,8 @@ public class TestLoginRegistr extends AbstractTestNGSpringContextTests {
         mainMenu.openMainPage();
         topMenu.waitUntilLoad();
         topMenu.clickOnLoginButton();
-        Assert.assertTrue(mainMenu.titleContainString("Вход"));
         loginPage.waitUntilLoad();
+        Assert.assertTrue(mainMenu.titleContainString("Вход"));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class TestLoginRegistr extends AbstractTestNGSpringContextTests {
         mainMenu.openMainPage();
         topMenu.waitUntilLoad();
         topMenu.clickOnRegistrButton();
-        Assert.assertTrue(mainMenu.titleContainString("Регистрация"));
         registrPage.waitUntilLoad();
+        Assert.assertTrue(mainMenu.titleContainString("Регистрация"));
     }
 }
