@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.annotation.DirtiesContext;
 
+import javax.annotation.PreDestroy;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -39,6 +41,7 @@ public class TestConfig {
     }
 
     @Bean
+    @Scope("prototype")
     public WebDriver getDriver() throws Exception {
         Browser browser;
         try {
@@ -58,17 +61,6 @@ public class TestConfig {
         }
 
         DesiredCapabilities caps = new DesiredCapabilities();
-//        caps.setCapability("os", config.os());
-//        caps.setCapability("os_version", config.os_version());
-        //caps.setCapability("browser", config.browser());
-        //caps.setCapability("browser_version", config.browser_version());
-//        caps.setCapability("enableVideo", false);
-
-        //caps.setPlatform(Platform.WIN10);
-        //caps.setPlatform(Platform.WIN10);
-//        caps.setBrowserName(config.browser());
-//        caps.setVersion(config.browser_version());
-
         caps.setBrowserName(config.browser());
         caps.setVersion(config.browser_version());
         caps.setCapability("enableVNC", true);
@@ -82,11 +74,11 @@ public class TestConfig {
         return driver;
     }
 
-/*    @PreDestroy
+    @PreDestroy
     public void closeDriver() {
         if (driver != null){
             Log.info("Quit from browser");
             driver.quit();
         }
-    }*/
+    }
 }

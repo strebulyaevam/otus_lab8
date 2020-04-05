@@ -2,15 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Auto-tests-otus" parallel="classes" thread-count="4">
 
-<!--
-    <listeners>
-        <listener class-name="TestNGListn.Sberb2bListener"/>
-    </listeners>
--->
-
     <test name="homePage-tests">
         <classes>
             <class name="lab8.TestHabrHomePage"/>
+            <class name="lab8.TestLoginRegistr"/>
         </classes>
     </test>
 </suite>
