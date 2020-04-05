@@ -6,8 +6,6 @@ import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
@@ -34,9 +31,6 @@ public class TestConfig {
 
     @Autowired
     WebDriver driver;
-
-    @Autowired
-    DesiredCapabilities caps;
 
     @Bean
     public Lab8Config getConfig() {
@@ -63,13 +57,24 @@ public class TestConfig {
             Log.error("Unknown browser type " + browser.name());
         }
 
-//        DesiredCapabilities caps = DesiredCapabilities();
-        caps.setCapability("os", config.os());
-        caps.setCapability("os_version", config.os_version());
-        caps.setCapability("browser", config.browser());
-        caps.setCapability("browser_version", config.browser_version());
+        DesiredCapabilities caps = new DesiredCapabilities();
+//        caps.setCapability("os", config.os());
+//        caps.setCapability("os_version", config.os_version());
+        //caps.setCapability("browser", config.browser());
+        //caps.setCapability("browser_version", config.browser_version());
+//        caps.setCapability("enableVideo", false);
+
+        //caps.setPlatform(Platform.WIN10);
+        //caps.setPlatform(Platform.WIN10);
+//        caps.setBrowserName(config.browser());
+//        caps.setVersion(config.browser_version());
+
+        caps.setBrowserName(config.browser());
+        caps.setVersion(config.browser_version());
+        caps.setCapability("enableVNC", true);
         caps.setCapability("enableVideo", false);
-        driver = new RemoteWebDriver(new URL("http://192.168.0.71:4444/wb/hub/"), caps);
+
+        driver = new RemoteWebDriver(new URL("http://192.168.0.71:4444/wd/hub/"), caps);
 
         driver.manage().timeouts().implicitlyWait(4L, TimeUnit.SECONDS);
         driver.manage().window().maximize();

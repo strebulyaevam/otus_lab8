@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Auto-tests-otus" parallel="methods" thread-count="4">
+<suite name="Auto-tests-otus" parallel="classes" thread-count="4">
 
 <!--
     <listeners>
@@ -7,11 +8,9 @@
     </listeners>
 -->
 
-
     <test name="homePage-tests">
-
         <classes>
-            <class name="lab8.TestHabr"></class>
+            <class name="lab8.TestHabrHomePage"/>
         </classes>
     </test>
 </suite>
