@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.annotation.DirtiesContext;
 
 import javax.annotation.PreDestroy;
@@ -40,6 +41,7 @@ public class TestConfig {
     }
 
     @Bean
+    @Scope("prototype")
     public WebDriver getDriver() throws Exception {
         Browser browser;
         try {

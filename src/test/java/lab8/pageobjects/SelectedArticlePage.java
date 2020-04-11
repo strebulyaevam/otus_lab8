@@ -12,19 +12,13 @@ public class SelectedArticlePage {
 
     private static Logger Log = LogManager.getLogger(SelectedArticlePage.class);
 
-    @Autowired
-    WebDriver driver;
+    By loc_post_caption = By.cssSelector("span.post__title-text");
 
-    WebDriverWait waiter;
-
-    public SelectedArticlePage() {
-        waiter = new WebDriverWait(driver, 4);
+    public void waitUntilLoad (WebDriverWait waiter){
         TestHelper.isPageLoad(waiter, loc_post_caption, "The Best articles for the week");
     }
 
-    By loc_post_caption = By.cssSelector("span.post__title-text");
-
-    public String getPageCaption() throws Exception {
+    public String getPageCaption(WebDriver driver, WebDriverWait waiter) throws Exception {
         return TestHelper.getTextFromElem(driver, waiter, loc_post_caption, "post__title-text");
     }
 

@@ -15,35 +15,21 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
-@Scope("prototype")
 public class MainMenu {
     private static Logger Log = LogManager.getLogger(MainMenu.class);
 
     @Autowired
-    WebDriver driver;
-
-    @Autowired
     Lab8Config cfg;
-
-    WebDriverWait waiter;
-
-    public MainMenu() {
-    }
-
-    @PostConstruct
-    private void init() {
-        waiter = new WebDriverWait(driver, 4);
-    }
 
     By loc_1st_item = By.xpath("//div[@class = 'tabs__level tabs-level_top tabs-menu']//h3[contains(text(), 'Статьи')]");
     By loc_main_menu = By.cssSelector("div.tabs__level.tabs-level_top.tabs-menu h3.tabs-menu__item-text");
     By loc_menu_item_byname(String item_name){ return By.xpath("//div[@class = 'tabs__level tabs-level_top tabs-menu']//h3[ contains(text(), '" + item_name +"')]");}
 
-    public void waitUntilLoad (){
+    public void waitUntilLoad (WebDriverWait waiter){
         TestHelper.isPageLoad(waiter, loc_1st_item, "Main Menu");
     }
 
-    public void clickItemByName (String menuname) throws Exception {
+    public void clickItemByName (WebDriverWait waiter,String menuname) throws Exception {
         By loc_item = By.xpath("//div[@class = 'tabs__level tabs-level_top tabs-menu']//h3[contains(text(), '" + menuname + "')]");
         TestHelper.clickOnElem(waiter, loc_item, menuname);
     }
@@ -55,24 +41,24 @@ public class MainMenu {
      }
 */
 
-    public List<String> getAllMainMenuItems(){
+    public List<String> getAllMainMenuItems(WebDriver driver){
         return TestHelper.getAllMenuItems(driver, loc_main_menu);
     }
 
-    public boolean isMenuItemSelected (String item_name){
+    public boolean isMenuItemSelected (WebDriver driver, String item_name){
         return driver.findElement(loc_menu_item_byname(item_name)).getAttribute("class").contains("tabs-menu__item-text_active");
    }
 
-   public void openMainPage () throws Exception {
+   public void openMainPage (WebDriver driver, WebDriverWait waiter) throws Exception {
        TestHelper.getURL(driver, cfg.hostname());
        TestHelper.isPageLoad(waiter, loc_1st_item, "Main Menu");
    }
 
-   public String getTitle () {
+   public String getTitle (WebDriver driver) {
         return driver.getTitle();
    }
 
-   public boolean titleContainString (String title_part){
+   public boolean titleContainString (WebDriver driver, String title_part){
         return driver.getTitle().contains(title_part);
    }
 }

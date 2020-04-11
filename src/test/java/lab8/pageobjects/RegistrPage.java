@@ -13,28 +13,12 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-//@Scope("prototype")
 public class RegistrPage {
     private static Logger Log = LogManager.getLogger(RegistrPage.class);
 
-    @Autowired
-    WebDriver driver;
-
-    WebDriverWait waiter;
-
-    public RegistrPage() {
-    }
-
     By loc_email = By.cssSelector("input[type='email']");
 
-    @PostConstruct
-    private void init() {
-        waiter = new WebDriverWait(driver, 6);
-    }
-
-    public void waitUntilLoad (){
+    public void waitUntilLoad (WebDriverWait waiter){
         TestHelper.isPageLoad(waiter, loc_email, "RegistrationPage");
     }
-
-
 }

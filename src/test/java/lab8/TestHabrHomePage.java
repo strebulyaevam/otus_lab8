@@ -24,10 +24,13 @@ public class TestHabrHomePage extends AbstractTestNGSpringContextTests {
     @Autowired
     TopMenu topMenu;
 
+    @Autowired
+    Session session;
+
     @Test
     public void openHabrHomePage() throws Exception {
-        mainMenu.openMainPage();
-        Assert.assertEquals(mainMenu.getTitle(), "Лучшие публикации за сутки / Хабр");
+        mainMenu.openMainPage(session.getWebDriver(), session.getWaiter());
+        Assert.assertEquals(mainMenu.getTitle(session.getWebDriver()), "Лучшие публикации за сутки / Хабр");
     }
 
     @Test
@@ -42,16 +45,16 @@ public class TestHabrHomePage extends AbstractTestNGSpringContextTests {
                 .add("Маркетинг")
                 .build();
 
-        mainMenu.openMainPage();
-        topMenu.waitUntilLoad();
-        List<String> actualResult = topMenu.getAllTopMenuItems();
+        mainMenu.openMainPage(session.getWebDriver(), session.getWaiter());
+        topMenu.waitUntilLoad(session.getWaiter());
+        List<String> actualResult = topMenu.getAllTopMenuItems(session.getWebDriver());
         Assert.assertEquals(expResult, actualResult);
     }
 
     @Test
     public void firstItemOfTopBarIsSelected() throws Exception {
-        mainMenu.openMainPage();
-        topMenu.waitUntilLoad();
-        Assert.assertTrue(topMenu.isMenuItemSelected("Все потоки"));
+        mainMenu.openMainPage(session.getWebDriver(), session.getWaiter());
+        topMenu.waitUntilLoad(session.getWaiter());
+        Assert.assertTrue(topMenu.isMenuItemSelected(session.getWebDriver(),"Все потоки"));
     }
 }

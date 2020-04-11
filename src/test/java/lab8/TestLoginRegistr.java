@@ -30,22 +30,24 @@ public class TestLoginRegistr extends AbstractTestNGSpringContextTests {
     @Autowired
     RegistrPage registrPage;
 
+    @Autowired
+    Session session;
 
     @Test
     public void buttonLoginDispalyTheCorrectPage() throws Exception {
-        mainMenu.openMainPage();
-        topMenu.waitUntilLoad();
-        topMenu.clickOnLoginButton();
-        loginPage.waitUntilLoad();
-        Assert.assertTrue(mainMenu.titleContainString("Вход"));
+        mainMenu.openMainPage(session.getWebDriver(), session.getWaiter());
+        topMenu.waitUntilLoad(session.getWaiter());
+        topMenu.clickOnLoginButton(session.getWaiter());
+        loginPage.waitUntilLoad(session.getWaiter());
+        Assert.assertTrue(mainMenu.titleContainString(session.getWebDriver(), "Вход"));
     }
 
     @Test
     public void buttonRegistrationDispalyTheCorrectPage() throws Exception {
-        mainMenu.openMainPage();
-        topMenu.waitUntilLoad();
-        topMenu.clickOnRegistrButton();
-        registrPage.waitUntilLoad();
-        Assert.assertTrue(mainMenu.titleContainString("Регистрация"));
+        mainMenu.openMainPage(session.getWebDriver(), session.getWaiter());
+        topMenu.waitUntilLoad(session.getWaiter());
+        topMenu.clickOnRegistrButton(session.getWaiter());
+        registrPage.waitUntilLoad(session.getWaiter());
+        Assert.assertTrue(mainMenu.titleContainString(session.getWebDriver(), "Регистрация"));
     }
 }
